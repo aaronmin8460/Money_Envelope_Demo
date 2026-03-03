@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { transferDraftSchema, type TransferDraft } from "@/lib/validators/transfer";
+import { transferDraftSchema, type TransferDraft, type TransferDraftInput } from "@/lib/validators/transfer";
 import { useMutation } from "@tanstack/react-query";
 import { http } from "@/lib/http";
 import toast from "react-hot-toast";
@@ -20,7 +20,7 @@ export default function SendPage() {
   const router = useRouter();
   const setDraft = useTransferStore((s) => s.setDraft);
 
-  const form = useForm<TransferDraft>({
+  const form = useForm<TransferDraftInput, any, TransferDraft>({
     resolver: zodResolver(transferDraftSchema),
     defaultValues: { recipientPhone: "", amount: 1000, message: "" },
     mode: "onChange",

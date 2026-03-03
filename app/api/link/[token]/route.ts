@@ -1,11 +1,11 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/server/db";
 
 export async function GET(
-  _req: Request,
-  ctx: { params: { token: string } } | { params: Promise<{ token: string }> }
+  _req: NextRequest,
+  { params }: { params: Promise<{ token: string }> }
 ) {
-  const { token } = await Promise.resolve(ctx.params);
+  const { token } = await params;
 
   const rec = db.getTransfer(token);
 
